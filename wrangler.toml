@@ -1,0 +1,8 @@
+name = "towing-service"
+type = "javascript"
+account_id = "0248b1b9d38798710eeddfb7c3344efe"
+workers_dev = true
+
+[site]
+bucket = "./dist"
+entry-point = "workers-site"

@@ -146,7 +146,7 @@ document.addEventListener("DOMContentLoaded", () => {
       <section class="contact" id="contact">
         <div class="container">
           <h2 class="section-title" data-trans="contact.title">Contact Us</h2>
-          <div class="contact-content">
+          <div class="contact-content" style="display:grid;grid-template-columns:1fr 1fr;gap:50px;align-items:start;">
             <div class="contact-info">
               <h3 data-trans="contact.hours">Working Hours</h3>
               <ul class="contact-hours">
@@ -160,6 +160,30 @@ document.addEventListener("DOMContentLoaded", () => {
                 <iframe src="https://www.google.com/maps?q=53.133662,23.175058&z=16&output=embed" width="100%" height="220" style="border:0;border-radius:12px;box-shadow:0 2px 12px rgba(0,0,0,0.10);" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
               </div>
             </div>
+            <div class="contact-side-box" style="background:#fff;border-radius:12px;box-shadow:0 2px 12px rgba(0,0,0,0.06);padding:32px 24px 24px 24px;display:flex;flex-direction:column;align-items:center;gap:18px;justify-content:flex-start;min-height:220px;">
+              <div class="contact-email" style="font-weight:600;color:var(--secondary-color);font-size:1.08rem;">
+                <span>Email: </span>
+                <a href="mailto:autoserwismax.bialystok@gmail.com" style="color:var(--primary-color);text-decoration:underline;word-break:break-all;">autoserwismax.bialystok@gmail.com</a>
+              </div>
+              <a href="tel:+48123456789" class="cta-button" style="margin-top:12px;display:inline-flex;align-items:center;gap:10px;">
+                <span class="phone-emoji">📞</span>
+                <span>Call Us</span>
+              </a>
+            </div>
+            <div class="contact-info">
+              <h3 data-trans="contact.hours">Working Hours</h3>
+              <ul class="contact-hours">
+                <li><strong>Mon-Fri:</strong> 8:00 – 16:00</li>
+                <li><strong>Saturday:</strong> 8:00 – 14:00</li>
+                <li><strong>Sunday:</strong> Closed</li>
+              </ul>
+              <h3 data-trans="contact.location">Workshop Location</h3>
+              <div class="contact-address" style="font-weight:600;color:var(--secondary-color);margin-bottom:8px;">Słonimska 2, 15-028 Białystok</div>
+              <div class="contact-map">
+                <iframe src="https://www.google.com/maps?q=53.133662,23.175058&z=16&output=embed" width="100%" height="220" style="border:0;border-radius:12px;box-shadow:0 2px 12px rgba(0,0,0,0.10);" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+              </div>
+            </div>
+
             <form class="contact-form" id="contact-form">
               <label for="name" data-trans="contact.form.name">Name</label>
               <input type="text" id="name" name="name" required placeholder="Your Name" />
