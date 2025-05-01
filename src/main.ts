@@ -145,65 +145,69 @@ document.addEventListener("DOMContentLoaded", () => {
       <!-- Contact Section -->
       <section class="contact" id="contact">
         <div class="container">
-          <h2 class="section-title" style="text-align:center;margin-bottom:2rem;">Contact Us</h2>
+           <h2 class="section-title" style="text-align:center;margin-bottom:2rem;" data-trans="contact.title">Contact Us</h2>
           <div class="contact-grid" style="display:grid;grid-template-columns:1fr 1fr;gap:32px;align-items:start;">
             <!-- Book an Appointment Form -->
             <div class="card" style="padding:2rem 2rem 1.5rem 2rem;border-radius:10px;box-shadow:var(--shadow);background:#fff;">
-              <h3 style="margin-bottom:1.2rem;font-size:1.15rem;font-weight:700;">Book an Appointment</h3>
-              <form class="contact-form" id="contact-form">
-                <label for="fullname">Full Name</label>
-                <input type="text" id="fullname" name="fullname" required placeholder="Full Name" />
-                <label for="phone">Phone Number</label>
-                <input type="tel" id="phone" name="phone" required placeholder="Phone Number" />
-                <label for="email">Email</label>
-                <input type="email" id="email" name="email" required placeholder="Email" />
-                <label for="service">Service Needed</label>
-                <select id="service" name="service" required>
-                  <option value="" disabled selected>Select a service</option>
-                  <option value="towing">Towing</option>
-                  <option value="repair">Repair</option>
-                  <option value="roadside">Roadside Assistance</option>
-                  <option value="transport">Vehicle Transport</option>
-                </select>
-                <label for="message">Message</label>
-                <textarea id="message" name="message" rows="3" placeholder="Message"></textarea>
-                <button type="submit" class="cta-button" style="margin-top:1rem;">Call Us</button>
-                <button type="button" class="cta-button" style="margin-top:0.5rem;background:#fff;color:var(--primary-color);border:1px solid var(--primary-color);">Get Exact Quote</button>
-              </form>
+               <h3 style="margin-bottom:1.2rem;font-size:1.15rem;font-weight:700;" data-trans="contact.form.book">Book an Appointment</h3>
+               <form class="contact-form" id="contact-form">
+                 <label for="contact-name" data-trans="contact.form.name">Full Name</label>
+                 <input type="text" id="contact-name" name="fullname" required placeholder="Full Name" />
+                 <label for="contact-phone" data-trans="contact.form.phone">Phone Number</label>
+                 <input type="tel" id="contact-phone" name="phone" required placeholder="Phone Number" />
+                 <label for="contact-email" data-trans="contact.form.email">Email</label>
+                 <input type="email" id="contact-email" name="email" required placeholder="Email" />
+                 <label for="service" data-trans="contact.form.service">Service Needed</label>
+                 <select id="service" name="service" required>
+                   <option value="" disabled selected data-trans="contact.form.servicePlaceholder">Select a service</option>
+                   <option value="towing" data-trans="contact.form.serviceOptions.towing">Towing</option>
+                   <option value="repair" data-trans="contact.form.serviceOptions.repair">Repair</option>
+                   <option value="roadside" data-trans="contact.form.serviceOptions.roadside">Roadside Assistance</option>
+                   <option value="transport" data-trans="contact.form.serviceOptions.transport">Vehicle Transport</option>
+                 </select>
+                 <label for="contact-message" data-trans="contact.form.message">Message</label>
+                 <textarea id="contact-message" name="message" rows="3" placeholder="Message"></textarea>
+                 <button type="submit" class="cta-button" id="contact-call" style="margin-top:1rem;" data-trans="contact.form.call">Call Us</button>
+                 <button type="button" class="cta-button" id="contact-quote" style="margin-top:0.5rem;background:#fff;color:var(--primary-color);border:1px solid var(--primary-color);" data-trans="contact.form.quote">Get Exact Quote</button>
+               </form>
             </div>
             <!-- Contact Information + Map Stack -->
             <div style="display:flex;flex-direction:column;gap:24px;">
-              <div class="card" style="padding:2rem 2rem 1.5rem 2rem;border-radius:10px;box-shadow:var(--shadow);background:#fff;">
-                <h3 style="margin-bottom:1.2rem;font-size:1.15rem;font-weight:700;">Contact Information</h3>
-                <div style="display:flex;align-items:flex-start;gap:10px;margin-bottom:1rem;">
-                  <span style="color:var(--primary-color);font-size:1.2rem;"><i class="fas fa-map-marker-alt"></i></span>
-                  <div>
-                    <div style="font-weight:600;">Workshop Address</div>
-                    <div>Słonimska 2 Białystok, Poland</div>
-                  </div>
-                </div>
-                <div style="display:flex;align-items:center;gap:10px;margin-bottom:1rem;">
-                  <span style="color:var(--primary-color);font-size:1.2rem;"><i class="fas fa-phone-alt"></i></span>
-                  <div>
-                    <div style="font-weight:600;">Phone</div>
-                    <div>530 162 530</div>
-                  </div>
-                </div>
-                <div style="display:flex;align-items:center;gap:10px;margin-bottom:1rem;">
-                  <span style="color:var(--primary-color);font-size:1.2rem;"><i class="fas fa-envelope"></i></span>
-                  <div>
-                    <div style="font-weight:600;">Email</div>
-                    <div><a href="mailto:autoserwismax.bialystok@gmail.com" style="color:var(--secondary-color);text-decoration:underline;">autoserwismax.bialystok@gmail.com</a></div>
-                  </div>
-                </div>
-                <div style="display:flex;align-items:flex-start;gap:10px;">
-                  <span style="color:var(--primary-color);font-size:1.2rem;"><i class="fas fa-clock"></i></span>
-                  <div>
-                    <div style="font-weight:600;">Working Hours</div>
-                    <div>Mon-Fri: 8:00 - 18:00<br>Sat: 9:00 - 14:00<br>Sun: Closed</div>
-                  </div>
-                </div>
-              </div>
+               <div class="card" style="padding:2rem 2rem 1.5rem 2rem;border-radius:10px;box-shadow:var(--shadow);background:#fff;">
+                 <h3 style="margin-bottom:1.2rem;font-size:1.15rem;font-weight:700;" data-trans="contact.info">Contact Information</h3>
+                 <div style="display:flex;align-items:flex-start;gap:10px;margin-bottom:1rem;">
+                   <span style="color:var(--primary-color);font-size:1.2rem;"><i class="fas fa-map-marker-alt"></i></span>
+                   <div>
+                     <div style="font-weight:600;" data-trans="contact.address">Workshop Address</div>
+                     <div data-trans="contact.addressValue">Słonimska 2 Białystok, Poland</div>
+                   </div>
+                 </div>
+                 <div style="display:flex;align-items:center;gap:10px;margin-bottom:1rem;">
+                   <span style="color:var(--primary-color);font-size:1.2rem;"><i class="fas fa-phone-alt"></i></span>
+                   <div>
+                     <div style="font-weight:600;" data-trans="contact.phone">Phone</div>
+                     <div data-trans="contact.phoneValue">530 162 530</div>
+                   </div>
+                 </div>
+                 <div style="display:flex;align-items:center;gap:10px;margin-bottom:1rem;">
+                   <span style="color:var(--primary-color);font-size:1.2rem;"><i class="fas fa-envelope"></i></span>
+                   <div>
+                     <div style="font-weight:600;" data-trans="contact.email">Email</div>
+                     <div><a href="mailto:autoserwismax.bialystok@gmail.com" style="color:var(--secondary-color);text-decoration:underline;" data-trans="contact.emailValue">autoserwismax.bialystok@gmail.com</a></div>
+                   </div>
+                 </div>
+                 <div style="display:flex;align-items:flex-start;gap:10px;">
+                   <span style="color:var(--primary-color);font-size:1.2rem;"><i class="fas fa-clock"></i></span>
+                   <div>
+                     <div style="font-weight:600;" data-trans="contact.hours">Working Hours</div>
+                     <div>
+                       <span data-trans="contact.weekdays">Mon-Fri: 8:00 - 18:00</span><br>
+                       <span data-trans="contact.weekend">Sat: 9:00 - 14:00</span><br>
+                       <span data-trans="contact.sunday">Sun: Closed</span>
+                     </div>
+                   </div>
+                 </div>
+               </div>
               <div class="card" style="padding:0.5rem 1rem 1.5rem 1rem;border-radius:10px;box-shadow:var(--shadow);background:#fff;">
                 <iframe src="https://www.google.com/maps?q=53.133662,23.175058&z=16&output=embed" width="100%" height="300" style="border:0;border-radius:10px;box-shadow:0 2px 12px rgba(0,0,0,0.10);" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
               </div>

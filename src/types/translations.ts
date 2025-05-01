@@ -74,7 +74,17 @@ export interface ContactFormTranslation {
   name: string;
   email: string;
   phone: string;
+  service: string;
+  servicePlaceholder: string;
+  serviceOptions: {
+    towing: string;
+    repair: string;
+    roadside: string;
+    transport: string;
+  };
   message: string;
+  call: string;
+  quote: string;
   submit: string;
 }
 
@@ -88,6 +98,11 @@ export interface ContactTranslation {
   weekend: string;
   sunday: string;
   form: ContactFormTranslation;
+  // Optional static info fields for UI
+  info?: string;
+  addressValue?: string;
+  phoneValue?: string;
+  emailValue?: string;
 }
 
 export interface FooterTranslation {
