@@ -18,22 +18,85 @@ const setupEventListeners = (): void => {
   });
 
   // Mobile menu toggle
-  const mobileMenuBtn = document.querySelector(".mobile-menu-btn");
-  const mainNav = document.querySelector(".main-nav");
-  
-  mobileMenuBtn?.addEventListener("click", () => {
-    mobileMenuBtn.classList.toggle("active");
-    mainNav?.classList.toggle("active");
-  });
+  const mobileMenuBtn = document.querySelector(".mobile-menu-btn") as HTMLButtonElement | null;
+  const mainNav = document.getElementById("main-nav");
+  const mobileNavOverlay = document.querySelector(".mobile-nav-overlay") as HTMLDivElement | null;
+  let lastFocusedElement: HTMLElement | null = null;
 
+  function openMobileMenu() {
+    if (!mobileMenuBtn || !mainNav || !mobileNavOverlay) return;
+    mobileMenuBtn.classList.add("active");
+    mobileMenuBtn.setAttribute("aria-expanded", "true");
+    mobileNavOverlay.classList.add("active");
+    mobileNavOverlay.setAttribute("aria-hidden", "false");
+    if (mainNav) {
+      mainNav.classList.add("active");
+      mainNav.setAttribute("aria-hidden", "false");
+      mainNav.tabIndex = 0;
+      lastFocusedElement = document.activeElement as HTMLElement;
+      // Focus first link
+      const firstLink = mainNav.querySelector(".nav-link") as HTMLElement;
+      if (firstLink) firstLink.focus();
+      // Trap focus
+      document.addEventListener("keydown", trapFocus);
+    }
+  }
+  function closeMobileMenu() {
+    if (!mobileMenuBtn || !mainNav || !mobileNavOverlay) return;
+    mobileMenuBtn.classList.remove("active");
+    mobileMenuBtn.setAttribute("aria-expanded", "false");
+    mobileNavOverlay.classList.remove("active");
+    mobileNavOverlay.setAttribute("aria-hidden", "true");
+    if (mainNav) {
+      mainNav.classList.remove("active");
+      mainNav.setAttribute("aria-hidden", "true");
+      mainNav.tabIndex = -1;
+      document.removeEventListener("keydown", trapFocus);
+    }
+    if (lastFocusedElement) lastFocusedElement.focus();
+  }
+  function trapFocus(e: KeyboardEvent) {
+    if (!mainNav || !mainNav.classList.contains("active")) return;
+    const focusableEls = mainNav.querySelectorAll<HTMLElement>("a, button, [tabindex]:not([tabindex='-1'])");
+    const firstEl = focusableEls[0];
+    const lastEl = focusableEls[focusableEls.length - 1];
+    if (e.key === "Tab") {
+      if (e.shiftKey) {
+        if (document.activeElement === firstEl) {
+          e.preventDefault();
+          lastEl.focus();
+        }
+      } else {
+        if (document.activeElement === lastEl) {
+          e.preventDefault();
+          firstEl.focus();
+        }
+      }
+    } else if (e.key === "Escape") {
+      closeMobileMenu();
+    }
+  }
+  mobileMenuBtn?.addEventListener("click", () => {
+    if (mainNav?.classList.contains("active")) {
+      closeMobileMenu();
+    } else {
+      openMobileMenu();
+    }
+  });
   // Close mobile menu when clicking on a link
   const navLinks = document.querySelectorAll(".nav-link");
   navLinks.forEach(link => {
     link.addEventListener("click", () => {
-      mobileMenuBtn?.classList.remove("active");
-      mainNav?.classList.remove("active");
+      closeMobileMenu();
     });
   });
+
+  // Close when clicking overlay
+  if (mobileNavOverlay) {
+    mobileNavOverlay.addEventListener("click", () => {
+      closeMobileMenu();
+    });
+  }
 
 
 
@@ -55,11 +118,13 @@ document.addEventListener("DOMContentLoaded", () => {
   const app = document.getElementById("app");
   if (app) {
     app.innerHTML = `
+      <div class="mobile-nav-overlay" aria-hidden="true" tabindex="-1"></div>
+
       <!-- Header -->
-      <header class="header" id="header">
+      <header class="header" id="header" role="banner" aria-label="Site Header">
           <div class="container">
               <div class="logo">
-                  <img src="/img/logo.png" alt="AutoSerwisMax Logo" class="logo-img">
+                  <img src="/img/logo.png" alt="AutoSerwisMax company logo" class="logo-img" role="img">
                   <span class="logo-text">AutoSerwisMax</span>
                 </div>
                 <div class="language-selector">
@@ -67,24 +132,19 @@ document.addEventListener("DOMContentLoaded", () => {
                   <button data-lang="pl" class="lang-btn">PL</button>
                   <button data-lang="ru" class="lang-btn">RU</button>
                 </div>
-                <nav class="main-nav">
-                  <ul class="nav-list">
-                      <li><a href="#home" class="nav-link" data-trans="nav.home">Home</a></li>
-                      <li><a href="#services" class="nav-link" data-trans="nav.services">Services</a></li>
-                      <li><a href="#about" class="nav-link" data-trans="nav.about">About Us</a></li>
-                      <li><a href="#contact" class="nav-link" data-trans="nav.contact">Contact</a></li>
+                <nav class="main-nav" id="main-nav" role="navigation" aria-label="Main Navigation" tabindex="-1">
+                  <ul class="nav-list" role="menubar">
+                      <li><a href="#home" class="nav-link" data-trans="nav.home" role="menuitem" tabindex="0">Home</a></li>
+                      <li><a href="#services" class="nav-link" data-trans="nav.services" role="menuitem" tabindex="0">Services</a></li>
+                      <li><a href="#about" class="nav-link" data-trans="nav.about" role="menuitem" tabindex="0">About Us</a></li>
+                      <li><a href="#contact" class="nav-link" data-trans="nav.contact" role="menuitem" tabindex="0">Contact</a></li>
                   </ul>
                 </nav>
-                <button class="mobile-menu-btn">
-              </nav>
-              <button class="mobile-menu-btn">
-                  <span class="hamburger-icon"></span>
-              </button>
           </div>
       </header>
 
       <!-- Hero Section -->
-      <section class="hero" id="home">
+      <section class="hero" id="home" aria-label="Hero Section">
           <div class="container">
               <div class="hero-content">
                   <h1 class="hero-title" data-trans="hero.title">Fast & Reliable Car Towing</h1>
@@ -99,7 +159,7 @@ document.addEventListener("DOMContentLoaded", () => {
       </section>
 
       <!-- Services Section -->
-      <section class="services" id="services">
+      <section class="services" id="services" aria-label="Services">
           <div class="container">
               <h2 class="section-title" data-trans="services.title">Our Services</h2>
               <div class="services-grid">
@@ -128,7 +188,7 @@ document.addEventListener("DOMContentLoaded", () => {
       </section>
 
       <!-- About Section -->
-      <section class="about" id="about">
+      <section class="about" id="about" aria-label="About Us">
         <div class="container">
           <div class="about-content">
             <div class="about-text">
@@ -143,14 +203,37 @@ document.addEventListener("DOMContentLoaded", () => {
       </section>
 
       <!-- Contact Section -->
-      <section class="contact" id="contact">
+      <section class="contact" id="contact" aria-label="Contact">
         <div class="container">
            <h2 class="section-title" style="text-align:center;margin-bottom:2rem;" data-trans="contact.title">Contact Us</h2>
-          <div class="contact-grid" style="display:grid;grid-template-columns:1fr 1fr;gap:32px;align-items:start;">
-            <!-- Book an Appointment Form -->
-            <div class="card" style="padding:2rem 2rem 1.5rem 2rem;border-radius:10px;box-shadow:var(--shadow);background:#fff;">
+          <div class="contact-grid">
+            <!-- Address Card -->
+            <div class="card contact-address">
+              <h3 style="margin-bottom:1.2rem;font-size:1.15rem;font-weight:700;" data-trans="contact.info">Contact Information</h3>
+              <div style="display:flex;align-items:flex-start;gap:10px;margin-bottom:1rem;">
+                <span style="color:var(--primary-color);font-size:1.2rem;"><i class="fas fa-map-marker-alt"></i></span>
+                <div>
+                  <span data-trans="contact.address">ul. Przykładowa 123, 15-123 Białystok</span><br>
+                  <span data-trans="contact.hours">Mon-Fri: 8:00-18:00, Sat: 9:00-14:00</span>
+                </div>
+              </div>
+              <div style="display:flex;align-items:center;gap:10px;margin-bottom:1rem;">
+                <span style="color:var(--primary-color);font-size:1.2rem;"><i class="fas fa-phone-alt"></i></span>
+                <a href="tel:+48123456789" style="color:inherit;text-decoration:none;" data-trans="contact.phone">+48 123 456 789</a>
+              </div>
+              <div style="display:flex;align-items:center;gap:10px;">
+                <span style="color:var(--primary-color);font-size:1.2rem;"><i class="fas fa-envelope"></i></span>
+                <a href="mailto:kontakt@autoservismax.pl" style="color:inherit;text-decoration:none;" data-trans="contact.email">kontakt@autoservismax.pl</a>
+              </div>
+            </div>
+            <!-- Map -->
+            <div class="contact-map">
+              <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2433.408960434125!2d23.16807331580034!3d53.13248807993562!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x471ffb2f9c6e5c13%3A0x2c3b5b7e7f6b2c6b!2sBia%C5%82ystok!5e0!3m2!1spl!2spl!4v1620000000000!5m2!1spl!2spl" width="100%" height="220" style="border:0;border-radius:10px;box-shadow:var(--shadow);margin:1.5rem 0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+            </div>
+            <!-- Contact Form -->
+            <div class="card contact-form-card">
                <h3 style="margin-bottom:1.2rem;font-size:1.15rem;font-weight:700;" data-trans="contact.form.book">Book an Appointment</h3>
-               <form class="contact-form" id="contact-form">
+               <form class="contact-form" id="contact-form" aria-label="Contact form">
                  <label for="contact-name" data-trans="contact.form.name">Full Name</label>
                  <input type="text" id="contact-name" name="fullname" required placeholder="Full Name" />
                  <label for="contact-phone" data-trans="contact.form.phone">Phone Number</label>
