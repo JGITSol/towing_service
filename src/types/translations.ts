@@ -8,6 +8,8 @@ export interface NavTranslation {
   gallery: string;
   testimonials: string;
   contact: string;
+  legal: string;
+  workshop: string;
 }
 
 export interface HeroTranslation {
@@ -127,4 +129,6 @@ export interface Translations {
   en: LanguageTranslation;
   pl: LanguageTranslation;
   ru: LanguageTranslation;
+  ua: LanguageTranslation;
+  by: LanguageTranslation;
 }

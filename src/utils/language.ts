@@ -4,7 +4,7 @@ import { translations } from "../data/translations";
 import type { LanguageTranslation } from "../types/translations";
 
 // Available languages
-export type Language = "en" | "pl" | "ru";
+export type Language = "en" | "pl" | "ru" | "ua" | "by";
 
 // Current language state
 let currentLanguage: Language = "en";

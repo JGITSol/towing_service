@@ -6,16 +6,32 @@ import type { Language } from "./utils/language";
 
 // Set up event listeners for the website
 const setupEventListeners = (): void => {
-  // Language switcher
-  const langButtons = document.querySelectorAll(".lang-btn");
-  langButtons.forEach(btn => {
-    btn.addEventListener("click", () => {
-      const lang = btn.getAttribute("data-lang") as Language;
+  // Language switcher (dropdown) with localStorage persistence
+  const langDropdown = document.getElementById("lang-dropdown") as HTMLSelectElement | null;
+  function setHtmlLang(lang: Language) {
+    document.documentElement.lang = lang;
+  }
+  function getStoredLang(): Language {
+    return (localStorage.getItem('siteLang') as Language) || 'pl';
+  }
+  function storeLang(lang: Language) {
+    localStorage.setItem('siteLang', lang);
+  }
+  if (langDropdown) {
+    langDropdown.addEventListener("change", () => {
+      const lang = langDropdown.value as Language;
       if (lang) {
         changeLanguage(lang);
+        storeLang(lang);
+        setHtmlLang(lang);
       }
     });
-  });
+    // Set dropdown and language from localStorage on load
+    const storedLang = getStoredLang();
+    langDropdown.value = storedLang;
+    changeLanguage(storedLang);
+    setHtmlLang(storedLang);
+  }
 
   // Mobile menu toggle
   const mobileMenuBtn = document.querySelector(".mobile-menu-btn") as HTMLButtonElement | null;
@@ -128,19 +144,25 @@ document.addEventListener("DOMContentLoaded", () => {
             <span class="logo-text">AutoSerwisMax</span>
           </div>
           <div class="language-selector">
-            <button data-lang="en" class="lang-btn active">EN</button>
-            <button data-lang="pl" class="lang-btn">PL</button>
-            <button data-lang="ru" class="lang-btn">RU</button>
-          </div>
+  <label for="lang-dropdown" class="visually-hidden">Select Language</label>
+  <select id="lang-dropdown" class="lang-dropdown" aria-label="Select Language">
+    <option value="pl" selected>🇵🇱 Polski</option>
+    <option value="en">🇬🇧 English</option>
+    <option value="ua">🇺🇦 Українська</option>
+    <option value="by">🇧🇾 Беларуская</option>
+    <option value="ru">🇷🇺 Русский</option>
+  </select>
+</div>
         </div>
       </header>
       <nav class="page-navbar" id="page-navbar" role="navigation" aria-label="Page Navigation">
         <ul class="page-nav-list" role="menubar">
           <li><a href="#home" class="nav-link" data-trans="nav.home" role="menuitem" tabindex="0">Home</a></li>
           <li><a href="#services" class="nav-link" data-trans="nav.services" role="menuitem" tabindex="0">Services</a></li>
-          <li><a href="#pricing" class="nav-link" data-trans="nav.pricing" role="menuitem" tabindex="0">Pricing</a></li>
+          <li><a href="https://autoserwismax.com" class="nav-link" target="_blank" rel="noopener" data-trans="nav.workshop" role="menuitem" tabindex="0">Warsztat</a></li>
           <li><a href="#about" class="nav-link" data-trans="nav.about" role="menuitem" tabindex="0">About Us</a></li>
           <li><a href="#contact" class="nav-link" data-trans="nav.contact" role="menuitem" tabindex="0">Contact</a></li>
+          <li><a href="src/legal-info.html" class="nav-link" data-trans="nav.legal" role="menuitem" tabindex="0">Legal Info</a></li>
         </ul>
       </nav>
 
@@ -150,7 +172,7 @@ document.addEventListener("DOMContentLoaded", () => {
               <div class="hero-content">
                   <h1 class="hero-title" data-trans="hero.title">Fast & Reliable Car Towing</h1>
                   <p class="hero-subtitle" data-trans="hero.subtitle">Professional vehicle recovery and repair services available 24/7</p>
-                  <a href="tel:+48123456789" class="cta-button">
+                  <a href="tel:+48530162530" class="cta-button">
                       <span class="phone-emoji">📞</span>
                       <span data-trans="hero.cta">Call Now</span>
                   </a>

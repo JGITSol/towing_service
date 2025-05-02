@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="pl" id="html-root">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Legal & Business Information | AutoSerwisMax</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .legal-container {
+      max-width: 800px;
+      margin: 2rem auto;
+      background: #fff;
+      border-radius: 10px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.07);
+      padding: 2rem;
+    }
+    .legal-container h1, .legal-container h2, .legal-container h3 {
+      color: var(--primary-color, #E10600);
+    }
+    .legal-container a {
+      color: var(--primary-color, #E10600);
+      text-decoration: underline;
+    }
+    .legal-back {
+      display: inline-block;
+      margin-bottom: 1.5rem;
+      color: var(--secondary-color, #2C3E50);
+      font-weight: 600;
+      text-decoration: none;
+      border: 1px solid #e0e0e0;
+      padding: 0.5rem 1rem;
+      border-radius: 5px;
+      transition: background 0.2s;
+    }
+    .legal-back:hover {
+      background: #f8f8f8;
+    }
+    .language-selector {
+      margin-bottom: 1rem;
+      float: right;
+    }
+    .lang-dropdown {
+      padding: 0.5rem 1rem;
+      border: 1px solid #e0e0e0;
+      border-radius: 5px;
+    }
+    @media (max-width: 600px) {
+      .legal-container { padding: 1rem; }
+    }
+  </style>
+</head>
+<body>
+  <div class="legal-container">
+    <div class="language-selector">
+      <label for="legal-lang-dropdown" class="visually-hidden">Select Language</label>
+      <select id="legal-lang-dropdown" class="lang-dropdown" aria-label="Select Language">
+        <option value="pl">🇵🇱 Polski</option>
+        <option value="en">🇬🇧 English</option>
+        <option value="ua">🇺🇦 Українська</option>
+        <option value="by">🇧🇾 Беларуская</option>
+        <option value="ru">🇷🇺 Русский</option>
+      </select>
+    </div>
+    <a class="legal-back" href="index.html">&larr; Back to Main Page</a>
+    <div id="legal-content"></div>
+  </div>
+<script>
+  // --- Language Persistence and Sync ---
+  function setHtmlLang(lang) {
+    document.documentElement.lang = lang;
+  }
+  function getStoredLang() {
+    return localStorage.getItem('legalLang') || 'pl';
+  }
+  function storeLang(lang) {
+    localStorage.setItem('legalLang', lang);
+  }
+
+  const langToFile = {
+    pl: 'legal_pl.md',
+    en: 'legal_en.md',
+    ua: 'legal_ua.md',
+    by: 'legal_by.md',
+    ru: 'legal_ru.md'
+  };
+  const langDropdown = document.getElementById('legal-lang-dropdown');
+  const legalContentDiv = document.getElementById('legal-content');
+
+  async function loadLegalContent(lang) {
+    const file = langToFile[lang] || langToFile['pl'];
+    try {
+      const resp = await fetch('/' + file);
+      if (!resp.ok) throw new Error('Could not fetch legal file: ' + file);
+      const text = await resp.text();
+      // Convert markdown to HTML (basic)
+      legalContentDiv.innerHTML = marked ? marked.parse(text) : text.replace(/\n/g, '<br>');
+    } catch (e) {
+      legalContentDiv.innerHTML = '<p style="color:red">Could not load legal information for this language.</p>';
+      console.error(e);
+    }
+  }
+
+  langDropdown.addEventListener('change', (e) => {
+    const lang = langDropdown.value;
+    storeLang(lang);
+    setHtmlLang(lang);
+    langDropdown.value = lang;
+    loadLegalContent(lang);
+  });
+
+  // On page load, set dropdown and content from localStorage
+  const storedLang = getStoredLang();
+  langDropdown.value = storedLang;
+  setHtmlLang(storedLang);
+  loadLegalContent(storedLang);
+</script>
+<!-- Optionally include marked.js for markdown rendering -->
+<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+</body>
+</html>
