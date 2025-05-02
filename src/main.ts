@@ -211,30 +211,24 @@ document.addEventListener("DOMContentLoaded", () => {
             <!-- Left column: Contact Form -->
             <div class="card contact-form-card">
                <h3 style="margin-bottom:1.2rem;font-size:1.15rem;font-weight:700;" data-trans="contact.form.book">Book an Appointment</h3>
-               <form class="contact-form" id="contact-form" aria-label="Contact form">
+               <form class="contact-form" id="contact-form" aria-label="Contact form" action="https://api.web3forms.com/submit" method="POST">
+                  <input type="hidden" name="access_key" value="87a0e0d1-a3d2-4023-bd40-31ca376ff958">
                   <label for="contact-name" data-trans="contact.form.name">Full Name</label>
                   <input type="text" id="contact-name" name="name" required placeholder="Full Name">
                   <label for="contact-phone" data-trans="contact.form.phone">Phone Number</label>
                   <input type="tel" id="contact-phone" name="phone" required placeholder="Phone Number">
                   <label for="contact-email" data-trans="contact.form.email">Email</label>
                   <input type="email" id="contact-email" name="email" required placeholder="Email">
-                  <label for="service" data-trans="contact.form.service">Service Needed</label>
-                  <select id="service" name="service" required>
-                    <option value="" disabled selected data-trans="contact.form.servicePlaceholder">Select a service</option>
-                    <option value="towing" data-trans="contact.form.serviceOptions.towing">Towing</option>
-                    <option value="repair" data-trans="contact.form.serviceOptions.repair">Repair</option>
-                    <option value="roadside" data-trans="contact.form.serviceOptions.roadside">Roadside Assistance</option>
-                    <option value="transport" data-trans="contact.form.serviceOptions.transport">Vehicle Transport</option>
-                  </select>
                   <label for="contact-message" data-trans="contact.form.message">Message</label>
                   <textarea id="contact-message" name="message" rows="3" placeholder="Message"></textarea>
-                  <button type="submit" class="cta-button" id="contact-call" style="margin-top:1rem;" data-trans="contact.form.call">Call Us</button>
-                  <button type="button" class="cta-button" id="contact-quote" style="margin-top:0.5rem;background:#fff;color:var(--primary-color);border:1px solid var(--primary-color);" data-trans="contact.form.quote">Get Exact Quote</button>
-                </form>
+                  <input type="checkbox" name="botcheck" class="hidden" style="display: none;">
+                  <!-- <input type="hidden" name="redirect" value="https://mywebsite.com/thanks.html"> -->
+                  <button type="submit" class="cta-button" id="contact-call" style="margin-top:1rem;" data-trans="contact.form.call">Send Message</button>
+               </form>
             </div>
             <!-- Right column: Info + Map stacked -->
             <div class="contact-info-stack">
-              <div class="card contact-address">
+               <div class="card contact-address">
                 <h3 style="margin-bottom:1.2rem;font-size:1.15rem;font-weight:700;" data-trans="contact.info">Contact Information</h3>
                 <div style="display:flex;align-items:flex-start;gap:10px;margin-bottom:1rem;">
   <span style="color:var(--primary-color);font-size:1.2rem;"><i class="fas fa-map-marker-alt"></i></span>
