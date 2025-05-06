@@ -315,7 +315,7 @@ Niniejszy Regulamin, wraz z naszą Polityką Prywatności i wszelkimi innymi pis
 
 Jeśli masz jakiekolwiek pytania dotyczące niniejszego Regulaminu, prosimy o kontakt z nami za pomocą informacji podanych w Sekcji 1.
 
-cookie_policy_pl = """
+
 # POLITYKA PLIKÓW COOKIE
 
 ## Ostatnia aktualizacja: 2 maja 2025 r.
@@ -441,11 +441,6 @@ Jeśli masz jakiekolwiek pytania dotyczące naszej Polityki Plików Cookie lub n
 Aby uzyskać więcej informacji na temat naszych praktyk przetwarzania danych, zapoznaj się z naszą Polityką Prywatności.
 """
 
-print(cookie_policy_pl)
-
-# Now, let's translate the Business Information document to Polish
-
-business_info_pl = """
 # INFORMACJE O FIRMIE I KONTAKT
 
 ## Ostatnia aktualizacja: 2 maja 2025 r.
