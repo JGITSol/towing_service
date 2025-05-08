@@ -3,6 +3,7 @@ import "./style.css";
 /* global document, alert, HTMLFormElement, HTMLButtonElement, HTMLInputElement, HTMLTextAreaElement */
 import { changeLanguage, updateLanguageUI } from "./utils/language";
 import type { Language } from "./utils/language";
+import { translations } from "./data/translations";
 
 // Set up event listeners for the website
 const setupEventListeners = (): void => {
@@ -156,14 +157,13 @@ document.addEventListener("DOMContentLoaded", () => {
         </div>
       </header>
       <nav class="page-navbar" id="page-navbar" role="navigation" aria-label="Page Navigation">
-        <ul class="page-nav-list" role="menubar">
-          <li><a href="#home" class="nav-link" data-trans="nav.home" role="menuitem" tabindex="0">Home</a></li>
-          <li><a href="#services" class="nav-link" data-trans="nav.services" role="menuitem" tabindex="0">Services</a></li>
-          <li><a href="https://autoserwismax.com" class="nav-link" target="_blank" rel="noopener" data-trans="nav.workshop" role="menuitem" tabindex="0">Warsztat</a></li>
-          <li><a href="#about" class="nav-link" data-trans="nav.about" role="menuitem" tabindex="0">About Us</a></li>
-          <li><a href="#contact" class="nav-link" data-trans="nav.contact" role="menuitem" tabindex="0">Contact</a></li>
-          <li><a href="src/legal-info.html" class="nav-link" data-trans="nav.legal" role="menuitem" tabindex="0">Legal Info</a></li>
-        </ul>
+        <ul class="page-nav-list two-row-mobile" role="menubar">
+  <li><a href="#home" class="nav-link" data-trans="nav.home" role="menuitem" tabindex="0">Home</a></li>
+  <li><a href="#services" class="nav-link" data-trans="nav.services" role="menuitem" tabindex="0">Services</a></li>
+  <li><a href="#about" class="nav-link" data-trans="nav.about" role="menuitem" tabindex="0">About Us</a></li>
+  <li><a href="#contact" class="nav-link" data-trans="nav.contact" role="menuitem" tabindex="0">Contact</a></li>
+  <li><a href="src/legal-info.html" class="nav-link" data-trans="nav.legal" role="menuitem" tabindex="0">Legal</a></li>
+</ul>
       </nav>
 
       <!-- Hero Section -->
@@ -255,27 +255,27 @@ document.addEventListener("DOMContentLoaded", () => {
                 <div style="display:flex;align-items:flex-start;gap:10px;margin-bottom:1rem;">
   <span style="color:var(--primary-color);font-size:1.2rem;"><i class="fas fa-map-marker-alt"></i></span>
   <div>
-    <div style="font-weight:600;" data-trans="contact.addressLabel">Workshop Address</div>
-    <div style="margin-top:2px;">
-      <span style="font-weight:400;" data-trans="contact.address">Słonimska 2, Białystok</span>
+    <div style="display:flex;align-items:center;gap:6px;">
+      <div style="font-weight:600;" data-trans="contact.addressLabel">Adres warsztatu</div>
+      <span id="contact-address-value" style="font-weight:400;">Słonimska 2, 15-026 Białystok</span>
     </div>
   </div>
 </div>
 <div style="display:flex;align-items:center;gap:10px;margin-bottom:1rem;">
   <span style="color:var(--primary-color);font-size:1.2rem;"><i class="fas fa-phone-alt"></i></span>
   <div>
-    <div style="font-weight:600;" data-trans="contact.phoneLabel">Phone</div>
-    <div style="margin-top:2px;">
-      <a href="tel:+48530162530" style="color:inherit;text-decoration:none;font-weight:400;" data-trans="contact.phone">530 162 530</a>
+    <div style="display:flex;align-items:center;gap:6px;">
+      <div style="font-weight:600;" data-trans="contact.phoneLabel">Telefon</div>
+      <a id="contact-phone-link" href="tel:+48530162530" style="color:inherit;text-decoration:none;font-weight:400;">530 162 530</a>
     </div>
   </div>
 </div>
 <div style="display:flex;align-items:center;gap:10px;margin-bottom:1rem;">
   <span style="color:var(--primary-color);font-size:1.2rem;"><i class="fas fa-envelope"></i></span>
   <div>
-    <div style="font-weight:600;" data-trans="contact.emailLabel">Email</div>
-    <div style="margin-top:2px;">
-      <a href="mailto:autoserwismax.bialystok@gmail.com" style="color:inherit;text-decoration:none;font-weight:400;" data-trans="contact.email">autoserwismax.bialystok@gmail.com</a>
+    <div style="display:flex;align-items:center;gap:6px;">
+      <div style="font-weight:600;" data-trans="contact.emailLabel">Email</div>
+      <a id="contact-email-link" href="mailto:autoserwismax.bialystok@gmail.com" style="color:inherit;text-decoration:none;font-weight:400;">autoserwismax.bialystok@gmail.com</a>
     </div>
   </div>
 </div>
@@ -284,7 +284,7 @@ document.addEventListener("DOMContentLoaded", () => {
                   <div>
                     <div style="font-weight:600;" data-trans="contact.hours">Working Hours</div>
                     <div>
-                      <span data-trans="contact.weekdays">Mon-Fri: 8:00 - 18:00</span><br>
+                      <span data-trans="contact.weekdays">MoPn-Pt: 8:00 - 17:00</span><br>
                       <span data-trans="contact.weekend">Sat: 9:00 - 14:00</span><br>
                       <span data-trans="contact.sunday">Sun: Closed</span>
                     </div>
@@ -302,4 +302,26 @@ document.addEventListener("DOMContentLoaded", () => {
   }
   setupEventListeners();
   updateLanguageUI();
+
+  // Ensure contact address, phone, and email are always rendered from translations (with fallback)
+    const lang = (localStorage.getItem('lang') as keyof typeof translations) || 'pl';
+  const translationsForLang = translations[lang] || translations['pl'];
+  const address = translationsForLang?.contact?.addressValue || 'Słonimska 2, 15-026 Białystok';
+  const phone = translationsForLang?.contact?.phoneValue || '530 162 530';
+  const email = translationsForLang?.contact?.emailValue || 'autoserwismax.bialystok@gmail.com';
+
+  const addressSpan = document.getElementById('contact-address-value');
+  if (addressSpan) {
+    addressSpan.textContent = address;
+  }
+  const phoneLink = document.getElementById('contact-phone-link') as HTMLAnchorElement;
+  if (phoneLink) {
+    phoneLink.textContent = phone;
+    phoneLink.href = `tel:${phone.replace(/\s+/g, '')}`;
+  }
+  const emailLink = document.getElementById('contact-email-link') as HTMLAnchorElement;
+  if (emailLink) {
+    emailLink.textContent = email;
+    emailLink.href = `mailto:${email}`;
+  }
 });

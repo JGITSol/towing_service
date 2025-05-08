@@ -1,6 +1,7 @@
 // Minimal GDPR consent popup with language support
 (function () {
-  const lang = (localStorage.getItem('siteLang') || document.documentElement.lang || 'pl').toLowerCase();
+  let lang = (localStorage.getItem('siteLang') || document.documentElement.lang || 'pl').toLowerCase();
+  if (!['pl','en','ua','by','ru'].includes(lang)) lang = 'pl';
   const legalLinks = {
     pl: '/src/legal-info.html?lang=pl',
     en: '/src/legal-info.html?lang=en',

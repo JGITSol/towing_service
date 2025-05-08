@@ -89,7 +89,7 @@ export const translations: Translations = {
       phone: "Phone",
       email: "Email",
       hours: "Working Hours",
-      weekdays: "Mon-Fri: 8:00 - 18:00",
+      weekdays: "Mon-Fri: 8:00 - 17:00",
       weekend: "Sat: 9:00 - 14:00",
       sunday: "Sun: Closed",
       form: {
@@ -200,7 +200,7 @@ export const translations: Translations = {
     },
     contact: {
       info: "Informacje kontaktowe",
-      addressValue: "Słonimska 2 Białystok, Polska",
+      addressValue: "Słonimska 2, 15-026 Białystok",
       phoneValue: "530 162 530",
       emailValue: "autoserwismax.bialystok@gmail.com",
       title: "Kontakt",
@@ -208,7 +208,7 @@ export const translations: Translations = {
       phone: "Telefon",
       email: "Email",
       hours: "Godziny pracy",
-      weekdays: "Pn-Pt: 8:00 - 18:00",
+      weekdays: "Pn-Pt: 8:00 - 17:00",
       weekend: "Sobota: 9:00 - 14:00",
       sunday: "Niedziela: Zamknięte",
       form: {

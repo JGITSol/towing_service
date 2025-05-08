@@ -332,30 +332,30 @@ body {
 
 
 .page-navbar {
-  position: sticky;
-  top: 0;
-  left: 0;
   width: 100%;
-  background: #f8f8f8;
-  box-shadow: 0 2px 10px rgba(0,0,0,0.06);
-  z-index: 1999;
-  min-height: 48px;
-  display: flex;
-  align-items: center;
-  margin-top: 0;
-  border-top: none;
+  margin: 0 auto;
 }
-
 
 .page-nav-list {
   display: flex;
-  flex-direction: row;
-  align-items: center;
-  gap: 1.2rem;
-  margin: 0 auto;
-  padding: 0 2rem;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1rem;
+  padding: 0;
+  margin: 0;
   list-style: none;
-  height: 48px;
+}
+
+@media (max-width: 600px) {
+  .page-nav-list {
+    flex-wrap: wrap;
+    flex-direction: row;
+    justify-content: flex-start;
+    gap: 0.5rem 1rem;
+  }
+  .page-nav-list li {
+    flex: 1 1 40%;
+  }
 }
 
 .page-nav-list li {
@@ -380,15 +380,68 @@ body {
 }
 
 @media (max-width: 700px) {
-  .page-nav-list {
-    gap: 0.4rem;
-    padding: 0 0.5rem;
+  .two-row-mobile {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    background: #fff;
+    padding: 0.5rem 0 0.5rem 0;
+    color: var(--secondary-color);
+    font-family: 'Oswald', Arial, sans-serif;
+    row-gap: 0;
+    column-gap: 0.3rem;
+    min-height: unset;
   }
-  .page-navbar .nav-link {
-    padding: 0.5rem 0.7rem;
-    font-size: 0.98rem;
+  .two-row-mobile li {
+    flex: 0 1 auto;
+    min-width: 0;
+    max-width: unset;
+    margin: 0 0.4rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .two-row-mobile a.nav-link {
+    color: var(--secondary-color);
+    font-size: 1.18rem;
+    font-weight: 400;
+    background: none;
+    text-align: center;
+    padding: 0.2rem 0.6rem 0.2rem 0.6rem;
+    border-radius: 0;
+    transition: color 0.2s;
+    position: relative;
+    text-decoration: none;
+    box-shadow: none;
+    line-height: 1.1;
+    display: inline-block;
+  }
+  .two-row-mobile a.nav-link {
+    font-weight: 400;
+  }
+  .two-row-mobile li:first-child a.nav-link {
+    font-weight: 700;
+  }
+  .two-row-mobile li:first-child a.nav-link.active, .two-row-mobile li:first-child a.nav-link:focus {
+    font-weight: 800;
+    color: var(--primary-color);
+  }
+  .two-row-mobile a.nav-link.active, .two-row-mobile a.nav-link:focus {
+    color: var(--primary-color);
+  }
+  .two-row-mobile a.nav-link.active::after, .two-row-mobile a.nav-link:focus::after {
+    content: '';
+    display: block;
+    width: 60%;
+    height: 3px;
+    background: var(--primary-color);
+    margin: 0.2rem auto 0 auto;
+    border-radius: 2px;
   }
 }
+
+
 
 
 
