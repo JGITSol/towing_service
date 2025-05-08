@@ -3,11 +3,11 @@
   let lang = (localStorage.getItem('siteLang') || document.documentElement.lang || 'pl').toLowerCase();
   if (!['pl','en','ua','by','ru'].includes(lang)) lang = 'pl';
   const legalLinks = {
-    pl: '/src/legal-info.html?lang=pl',
-    en: '/src/legal-info.html?lang=en',
-    ua: '/src/legal-info.html?lang=ua',
-    by: '/src/legal-info.html?lang=by',
-    ru: '/src/legal-info.html?lang=ru'
+    pl: '/legal-info.html?lang=pl',
+    en: '/legal-info.html?lang=en',
+    ua: '/legal-info.html?lang=ua',
+    by: '/legal-info.html?lang=by',
+    ru: '/legal-info.html?lang=ru'
   };
   const messages = {
     pl: 'Ta strona używa plików cookies. Szczegóły w naszej <a href="' + legalLinks.pl + '" target="_blank">Polityce Prywatności</a>.',

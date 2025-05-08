@@ -162,7 +162,7 @@ document.addEventListener("DOMContentLoaded", () => {
   <li><a href="#services" class="nav-link" data-trans="nav.services" role="menuitem" tabindex="0">Services</a></li>
   <li><a href="#about" class="nav-link" data-trans="nav.about" role="menuitem" tabindex="0">About Us</a></li>
   <li><a href="#contact" class="nav-link" data-trans="nav.contact" role="menuitem" tabindex="0">Contact</a></li>
-  <li><a href="src/legal-info.html" class="nav-link" data-trans="nav.legal" role="menuitem" tabindex="0">Legal</a></li>
+  <li><a href="/legal-info.html" class="nav-link" data-trans="nav.legal" role="menuitem" tabindex="0">Legal</a></li>
 </ul>
       </nav>
 

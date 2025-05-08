@@ -18,11 +18,6 @@
       color: var(--primary-color, #E10600);
     }
     .legal-container a {
-      color: var(--primary-color, #E10600);
-      text-decoration: underline;
-    }
-    .legal-back {
-      display: inline-block;
       margin-bottom: 1.5rem;
       color: var(--secondary-color, #2C3E50);
       font-weight: 600;
@@ -75,7 +70,6 @@
   function storeLang(lang) {
     localStorage.setItem('legalLang', lang);
   }
-
   const langToFile = {
     pl: '/legal_pl.md',
     en: '/legal_en.md',
@@ -89,11 +83,11 @@
   async function loadLegalContent(lang) {
     const file = langToFile[lang] || langToFile['pl'];
     try {
-      const resp = await fetch('/' + file);
+      const resp = await fetch(file);
       if (!resp.ok) throw new Error('Could not fetch legal file: ' + file);
       const text = await resp.text();
       // Convert markdown to HTML (basic)
-      legalContentDiv.innerHTML = marked ? marked.parse(text) : text.replace(/\n/g, '<br>');
+      legalContentDiv.innerHTML = window.marked ? marked.parse(text) : text.replace(/\n/g, '<br>');
     } catch (e) {
       legalContentDiv.innerHTML = '<p style="color:red">Could not load legal information for this language.</p>';
       console.error(e);
