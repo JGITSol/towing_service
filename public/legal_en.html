@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Legal & Business Information | AutoSerwisMax</title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <div class="legal-container">
+    <div class="language-selector">
+      <label for="legal-lang-dropdown" class="visually-hidden">Select Language</label>
+      <select id="legal-lang-dropdown" class="lang-dropdown" aria-label="Select Language">
+        <option value="pl">🇵🇱 Polski</option>
+        <option value="en" selected>🇬🇧 English</option>
+        <option value="ua">🇺🇦 Українська</option>
+        <option value="by">🇧🇾 Беларуская</option>
+        <option value="ru">🇷🇺 Русский</option>
+      </select>
+    </div>
+    <div id="legal-content"></div>
+    <footer class="footer">
+      <div class="footer-content">
+        <span>&copy; 2025 AutoSerwisMax. All Rights Reserved.</span>
+        <a href="/src/legal-info.html">Privacy Policy</a>
+      </div>
+    </footer>
+  </div>
+  <script>
+    const langToFile = {
+      pl: 'legal_pl.md',
+      en: 'legal_en.md',
+      ua: 'legal_ua.md',
+      by: 'legal_by.md',
+      ru: 'legal_ru.md',
+    };
+    const langDropdown = document.getElementById('legal-lang-dropdown');
+    const legalContentDiv = document.getElementById('legal-content');
+    function setHtmlLang(lang) {
+      document.documentElement.lang = lang;
+    }
+    function getStoredLang() {
+      return localStorage.getItem('legalLang') || 'en';
+    }
+    function storeLang(lang) {
+      localStorage.setItem('legalLang', lang);
+    }
+    function loadLegalContent(lang) {
+      fetch('/' + langToFile[lang])
+        .then(res => res.text())
+        .then(md => { legalContentDiv.innerText = md; });
+    }
+    langDropdown.value = getStoredLang();
+    setHtmlLang(langDropdown.value);
+    loadLegalContent(langDropdown.value);
+    langDropdown.addEventListener('change', (e) => {
+      const lang = langDropdown.value;
+      storeLang(lang);
+      setHtmlLang(lang);
+      loadLegalContent(lang);
+    });
+  </script>
+</body>
+</html>
